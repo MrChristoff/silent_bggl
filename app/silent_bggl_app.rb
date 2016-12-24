@@ -4,6 +4,10 @@ ENV['RACK_ENV'] = 'development'
 
 class SilentBggl < Sinatra::Base
   get '/' do
-    'Silent Boggle!'
+    redirect '/play'
+  end
+
+  get '/play' do
+    erb :play
   end
 end
