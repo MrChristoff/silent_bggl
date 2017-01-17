@@ -7,5 +7,4 @@ class Modern_dice
              "DELRVY", "ACHOPS", "EEINSU", "EEGHNW",
              "AFFKPS", "HLNNRZ", "DEILRX", "CIMOTU"]
   end
-  
 end
