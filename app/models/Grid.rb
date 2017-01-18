@@ -8,6 +8,12 @@ class Grid
     grid_builder
   end
 
+  def select_die(die_number)
+    $rolled_dice[die_number]
+  end
+
+  private
+
   def shuffle_dice
     $shuffled_dice = $dice.shuffle
   end
@@ -20,9 +26,5 @@ class Grid
 
   def roll_dice(die)
     die.split("").shuffle[0]
-  end
-
-  def select_die(die_number)
-    $rolled_dice[die_number]
   end
 end
