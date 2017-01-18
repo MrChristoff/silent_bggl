@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <title>Silent Bggl</title>
   </head>
-  <body>
+  <body onload="setInterval('updateClock()', 200);">
     <h2>Welcome to silent bggl!</h2>
+    <h3 id="clock"></h3>
 
     <table>
       <tr>
@@ -33,5 +34,7 @@
         <td><%= @grid.select_die(15) %></td>
       </tr>
     </table>
+    <script src="script/clock.js" type="text/javascript"></script>
+    <!-- <script src="script/clock.js" type="text/javascript"></script> -->
   </body>
 </html>
