@@ -39,16 +39,17 @@ module RustyRack
       @routes[verb][path] = handler
     end
   end
+  Application = Base.new
 end
 
-rusty_rack = RustyRack::Base.new
+rusty_rack_application = RustyRack::Application
 
-rusty_rack.get "/hello" do #creates a 'GET' route
-  "Welcome to the rusty rack, arrr" #This is the body which gets added to the HTTP response
+rusty_rack_application.get "/hello" do #creates a 'GET' route
+  "RustyRack::Application Welcome to the rusty rack, arrr" #This is the body which gets added to the HTTP response
 end
 
-rusty_rack.get "/" do
+rusty_rack_application.get "/" do
   "Your params arrrrrr #{params.inspect}"
 end
 
-Rack::Handler::WEBrick.run rusty_rack, Port: 9292
+Rack::Handler::WEBrick.run rusty_rack_application, Port: 9292
