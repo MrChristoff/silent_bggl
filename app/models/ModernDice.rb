@@ -1,4 +1,4 @@
-class Modern_dice
+class ModernDice
   attr_reader :dice
 
   def initialize
