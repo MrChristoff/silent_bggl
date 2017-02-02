@@ -40,6 +40,20 @@ module RustyRack
     end
   end
   Application = Base.new
+
+  # RustyRack::Delegator allows you to use methods without using 'RustyRack::Application.get'
+  module Delegator
+    def self.delegate(*methods, to:)
+      Array(methods).each do |method_name|
+        define_method(method_name) do |*args, &block|
+          to.send(method_, *args, &block)
+        end
+
+        private method_name
+      end
+    end
+    delegate :get, to: Application
+  end
 end
 
 rusty_rack_application = RustyRack::Application
