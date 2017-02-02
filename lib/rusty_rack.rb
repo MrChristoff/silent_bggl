@@ -1,4 +1,5 @@
 require "rack"
+require "erb"
 
 module RustyRack
   class Base
@@ -11,6 +12,12 @@ module RustyRack
     def get(path, &handler)
       route("GET", path, &handler)
     end
+
+    def erb(template)
+      path = File.expand_path("./app/views/#{template}")
+      ERB.new(File.read(path)).result(binding)
+    end
+
 
     def call(env) #wrapper for Rack ENV
       @request = Rack::Request.new(env)
