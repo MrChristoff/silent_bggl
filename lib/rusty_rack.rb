@@ -18,8 +18,12 @@ module RustyRack
       requested_path = @request.path_info
       handler = @routes.fetch(verb, {}).fetch(requested_path, nil)
       if handler
-        # handler.call
-        instance_eval(&handler) #instance_eval gives access to all methods and instance variables in RustyRack::Base
+        result = instance_eval(&handler) #instance_eval gives access to all methods and instance variables in RustyRack::Base
+        if result.class == String
+          [200, {}, [result]] #Line 21 - 26 seperates the repsonse and the headers from the body, so this can be put into the route directly.  Making cleaner code!
+        else
+          result
+        end
       else
         [404, {}, ["Arrr, no treasure here matey.\n\nAfraid '#{verb} #{requested_path}' does not exist."]]
       end
@@ -40,11 +44,11 @@ end
 rusty_rack = RustyRack::Base.new
 
 rusty_rack.get "/hello" do #creates a 'GET' route
-  [200, {}, ["Welcome to the rusty rack, arrr"]] #creates the respose to the request on this route
+  "Welcome to the rusty rack, arrr" #This is the body which gets added to the HTTP response
 end
 
 rusty_rack.get "/" do
-  [200, {}, ["Your params arrrrrr #{params.inspect}"]]
+  "Your params arrrrrr #{params.inspect}"
 end
 
 Rack::Handler::WEBrick.run rusty_rack, Port: 9292
