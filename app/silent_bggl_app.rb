@@ -1,5 +1,5 @@
 get "/" do
-  "Hey there!"
+  "You are awesome!"
 end
 
 get "/welcome" do
