@@ -12,6 +12,14 @@ module RustyRack
       route("GET", path, &handler)
     end
 
+    def call(env) #wrapper for Rack ENV
+      @request = Rack::Request.new(env)
+      verb = @request.request_method
+      requested_path = @request.path_info
+      handler = @routes[verb][requested_path]
+      handler.call
+    end
+
     private
     def route(verb, path, &handler)
       @routes[verb] ||= {}
@@ -26,4 +34,4 @@ rusty_rack.get "/hello" do #creates a 'GET' route
   [200, {}, ["Welcome to the rusty rack, arrr"]] #creates the respose to the request on this route
 end
 
-puts rusty_rack.routes
+Rack::Handler::WEBrick.run rusty_rack, Port: 9292
