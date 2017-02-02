@@ -22,10 +22,8 @@ end
 
 rusty_rack = RustyRack::Base.new
 
-rusty_rack.get "/hello" do
-  [200, {}, ["Welcome o the rusty rack, arrr"]]
+rusty_rack.get "/hello" do #creates a 'GET' route
+  [200, {}, ["Welcome to the rusty rack, arrr"]] #creates the respose to the request on this route
 end
 
 puts rusty_rack.routes
-
-# Rack::Handler::WEBrick.run(RustyRack.new, Port:9292)
