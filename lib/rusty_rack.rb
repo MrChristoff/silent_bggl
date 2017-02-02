@@ -29,7 +29,6 @@ module RustyRack
       end
     end
 
-
     private
     def params
       @request.params
@@ -60,13 +59,3 @@ module RustyRack
 end
 
 include RustyRack::Delegator
-
-get "/hello" do #creates a 'GET' route
-  "RustyRack::Application Welcome to the rusty rack, arrr" #This is the body which gets added to the HTTP response
-end
-
-get "/" do
-  "Your params arrrrrr #{params.inspect}"
-end
-
-Rack::Handler::WEBrick.run RustyRack::Application, Port: 9292
