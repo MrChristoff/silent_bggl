@@ -16,8 +16,12 @@ module RustyRack
       @request = Rack::Request.new(env)
       verb = @request.request_method
       requested_path = @request.path_info
-      handler = @routes[verb][requested_path]
-      handler.call
+      handler = @routes.fetch(verb, {}).fetch(requested_path, nil)
+      if handler
+        handler.call
+      else
+        [404, {}, ["Arrr, no treasure here matey.\n\nAfraid '#{verb} #{requested_path}' does not exist."]]
+      end
     end
 
     private
